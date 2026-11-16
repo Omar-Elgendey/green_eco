@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الاقتصاد الأخضر في مصر — خريطة تفاعلية</title>
+  <meta name="description"
+    content="خريطة تفاعلية للاقتصاد الأخضر في مصر: محطة بنبان الشمسية، مزارع رياح الزعفرانة، الهيدروجين الأخضر في المنطقة الاقتصادية لقناة السويس، الزراعة المستدامة في دلتا النيل، والتمويل الأخضر في القاهرة." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --green-950: #04211A;
+      --green-900: #083024;
+      --green-800: #0E4633;
+      --green-700: #14614A;
+      --green-600: #1D7C5F;
+      --green-500: #2F9A76;
+      --green-300: #96D8B8;
+      --gold: #F2B705;
+      --gold-600: #C98700;
+      --gold-300: #FFD978;
+      --sand: #EDE7D8;
+      --sand-line: #D6CDB6;
+      --sea: #CDE6EF;
+      --ink: #0C241B;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      color: #fff;
+      background: #04211A;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(1100px 620px at 10% -12%, rgba(242, 183, 5, .20), transparent 60%),
+        radial-gradient(900px 700px at 94% 6%, rgba(87, 184, 148, .20), transparent 62%),
+        linear-gradient(165deg, #05231B 0%, #083024 45%, #04211A 100%);
+    }
+
+    .shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    /* ---------- Header ---------- */
+    header.hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: end;
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid rgba(151, 216, 184, .22);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold-300);
+      background: rgba(242, 183, 5, .12);
+      border: 1px solid rgba(242, 183, 5, .35);
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .kicker svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4.6vw, 50px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: linear-gradient(95deg, #fff 10%, var(--gold-300) 62%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      margin: 10px 0 0;
+      max-width: 64ch;
+      color: #C8E4D8;
+      font-size: clamp(14px, 1.6vw, 16.5px);
+      line-height: 1.55;
+    }
+
+    .sub b {
+      color: var(--gold-300);
+      font-weight: 700;
+    }
+
+    .howto {
+      text-align: right;
+      font-size: 12.5px;
+      color: #A8CDBD;
+      line-height: 1.8;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(151, 216, 184, .2);
+      padding: 12px 16px;
+      border-radius: 14px;
+    }
+
+    .howto b {
+      color: var(--gold-300);
+      font-weight: 700;
+    }
+
+    .howto kbd {
+      font-family: var(--font);
+      font-size: 11px;
+      background: rgba(242, 183, 5, .16);
+      border: 1px solid rgba(242, 183, 5, .4);
+      padding: 1px 7px;
+      border-radius: 6px;
+      color: var(--gold-300);
+    }
+
+    /* ---------- Stat strip ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      background: linear-gradient(160deg, rgba(255, 255, 255, .085), rgba(255, 255, 255, .03));
+      border: 1px solid rgba(151, 216, 184, .2);
+      border-radius: 14px;
+      padding: 14px 14px 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--gold), rgba(242, 183, 5, 0));
+    }
+
+    .stat b {
+      display: block;
+      font-size: clamp(17px, 2.1vw, 23px);
+      font-weight: 800;
+      color: var(--gold-300);
+      letter-spacing: -.01em;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #B6D8C9;
+      font-weight: 500;
+    }
+
+    /* ---------- Stage ---------- */
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 274px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .map-panel {
+      position: relative;
+      background: linear-gradient(180deg, #FBFDF8, #EAF4EC);
+      border-radius: 22px;
+      box-shadow: 0 26px 64px rgba(4, 33, 26, .38);
+      overflow: hidden;
+      border: 1px solid rgba(151, 216, 184, .25);
+    }
+
+    .map-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1000/720;
+    }
+
+    svg.map {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ---------- SVG map ---------- */
+    .sea {
+      fill: url(#seaGrad);
+    }
+
+    .waves {
+      fill: url(#wavePat);
+      opacity: .5;
+    }
+
+    .nb {
+      fill: var(--sand);
+      stroke: var(--sand-line);
+      stroke-width: 1.1;
+      stroke-linejoin: round;
+    }
+
+    .egypt {
+      fill: url(#landGrad);
+      stroke: #1C6B4E;
+      stroke-width: 2.6;
+      stroke-linejoin: round;
+      filter: url(#landShadow);
+    }
+
+    .nile {
+      fill: none;
+      stroke: #3FA3C4;
+      stroke-width: 3.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nile-halo {
+      fill: none;
+      stroke: #9BD8EA;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: .4;
+    }
+
+    .lake {
+      fill: #8FCBDF;
+      stroke: #3FA3C4;
+      stroke-width: 1.4;
+    }
+
+    .canal {
+      fill: none;
+      stroke: #3FA3C4;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      opacity: .95;
+    }
+
+    .canal-halo {
+      fill: none;
+      stroke: #9BD8EA;
+      stroke-width: 9;
+      stroke-linecap: round;
+      opacity: .45;
+    }
+
+    .lbl-region {
+      fill: #2F6E55;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    .lbl-water {
+      fill: #2A6B84;
+      font-size: 12px;
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: .06em;
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .lbl-neighbour {
+      fill: #A79B7E;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      opacity: .85;
+      pointer-events: none;
+    }
+
+    .lbl-city {
+      fill: #4A3D22;
+      font-size: 10.5px;
+      font-weight: 600;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: #EAF6EE;
+      stroke-width: 2.6px;
+      stroke-linejoin: round;
+    }
+
+    .scale-line {
+      stroke: #5B6B5F;
+      stroke-width: 2;
+      opacity: .65;
+    }
+
+    /* hotspots */
+    .hotspot {
+      cursor: pointer;
+    }
+
+    .hotspot .halo {
+      fill: rgba(242, 183, 5, .2);
+      animation: pulse 3.2s ease-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .hotspot .ring {
+      fill: none;
+      stroke: #0E4633;
+      stroke-width: 2;
+      opacity: .6;
+    }
+
+    .hotspot .disc {
+      fill: url(#discGrad);
+      stroke: #FFF8E8;
+      stroke-width: 2.4;
+      filter: url(#badgeShadow);
+    }
+
+    .hotspot .ico {
+      color: #0A2E20;
+    }
+
+    .hotspot .spin {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spin 9s linear infinite;
+    }
+
+    .hotspot .rays {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spin 28s linear infinite;
+    }
+
+    .hotspot:hover .disc,
+    .hotspot:focus-visible .disc {
+      filter: drop-shadow(0 0 12px rgba(242, 183, 5, .9));
+    }
+
+    .hotspot:focus {
+      outline: none;
+    }
+
+    .hotspot:focus-visible .ring {
+      stroke: var(--gold);
+      stroke-width: 3.4;
+      opacity: 1;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(.7);
+        opacity: .8;
+      }
+
+      70% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .hotspot .halo,
+      .hotspot .spin,
+      .hotspot .rays {
+        animation: none;
+      }
+    }
+
+    .chip-bg {
+      fill: #FFFFFF;
+      stroke: #14614A;
+      stroke-width: 1.5;
+      opacity: .98;
+    }
+
+    .chip-text {
+      font-size: 13.5px;
+      font-weight: 700;
+      fill: #0E4633;
+    }
+
+    .leader {
+      stroke: #C98700;
+      stroke-width: 1.6;
+      fill: none;
+      opacity: .65;
+      stroke-dasharray: 3 3;
+    }
+
+    .leader-dot {
+      fill: #C98700;
+      opacity: .8;
+    }
+
+    .label {
+      transition: opacity .25s ease;
+    }
+
+    .map-panel.focused .label {
+      opacity: .14;
+    }
+
+    .map-panel.focused .label.active {
+      opacity: 1;
+    }
+
+    /* ---------- Info card ---------- */
+    .card {
+      position: absolute;
+      z-index: 20;
+      width: 348px;
+      max-width: calc(100% - 24px);
+      background: linear-gradient(165deg, #0E4633 0%, #0A3327 55%, #072219 100%);
+      border: 1px solid rgba(151, 216, 184, .35);
+      border-radius: 16px;
+      box-shadow: 0 24px 50px rgba(3, 20, 15, .55);
+      color: #EAF6F0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(10px) scale(.98);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    .card-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 15px 15px 13px;
+      background: linear-gradient(120deg, rgba(242, 183, 5, .2), rgba(242, 183, 5, 0) 70%);
+      border-bottom: 1px solid rgba(151, 216, 184, .18);
+    }
+
+    .card-icon {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, var(--gold-300), var(--gold-600));
+      display: grid;
+      place-items: center;
+      color: #0B2E21;
+      box-shadow: 0 6px 14px rgba(242, 183, 5, .3);
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .card-head h3 {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+      color: #fff;
+    }
+
+    .card-head p {
+      margin: 4px 0 0;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      color: var(--gold-300);
+    }
+
+    .card-close {
+      margin-left: auto;
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      border: 1px solid rgba(151, 216, 184, .3);
+      background: transparent;
+      color: #C6E5D8;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .card-close:hover {
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+    }
+
+    .card-body {
+      padding: 12px 15px 15px;
+      max-height: min(56vh, 400px);
+      overflow: auto;
+    }
+
+    .card-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .card-body::-webkit-scrollbar-thumb {
+      background: rgba(151, 216, 184, .35);
+      border-radius: 99px;
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 9px;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(151, 216, 184, .16);
+    }
+
+    .fact:last-child {
+      border-bottom: 0;
+    }
+
+    .fact .fico {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(151, 216, 184, .13);
+      color: var(--green-300);
+    }
+
+    .fact .fico svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .fact .fico.gold {
+      background: rgba(242, 183, 5, .16);
+      color: var(--gold-300);
+    }
+
+    .fact .fico.warn {
+      background: rgba(224, 110, 66, .18);
+      color: #F3AC8C;
+    }
+
+    .fact h4 {
+      margin: 0 0 2px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--green-300);
+    }
+
+    .fact.warn h4 {
+      color: #F3AC8C;
+    }
+
+    .fact p {
+      margin: 0;
+      font-size: 12.8px;
+      line-height: 1.55;
+      color: #D9EDE4;
+    }
+
+    .fact p strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .card-foot {
+      padding: 9px 15px;
+      background: rgba(0, 0, 0, .22);
+      font-size: 10.5px;
+      color: #9CC4B4;
+      letter-spacing: .03em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-top: 1px solid rgba(151, 216, 184, .16);
+    }
+
+    .card-foot svg {
+      width: 13px;
+      height: 13px;
+      color: var(--gold);
+      flex: 0 0 auto;
+    }
+
+    .card-arrow {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #0B3829;
+      transform: rotate(45deg);
+      border: 1px solid rgba(151, 216, 184, .35);
+    }
+
+    /* ---------- Rail ---------- */
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .panel {
+      background: linear-gradient(165deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .035));
+      border: 1px solid rgba(151, 216, 184, .2);
+      border-radius: 16px;
+      padding: 15px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold-300);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .panel h2 svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      padding: 8px 9px;
+      color: inherit;
+      font-family: inherit;
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .legend-item:hover {
+      background: rgba(242, 183, 5, .1);
+      border-color: rgba(242, 183, 5, .3);
+      transform: translateX(3px);
+    }
+
+    .legend-item.active {
+      background: rgba(242, 183, 5, .14);
+      border-color: rgba(242, 183, 5, .5);
+    }
+
+    .legend-dot {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(140deg, var(--gold-300), var(--gold-600));
+      color: #0B2E21;
+    }
+
+    .legend-dot svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .legend-item b {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .legend-item span span {
+      display: block;
+      font-size: 10.8px;
+      color: #A6CDBC;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 7px;
+    }
+
+    .swatch {
+      flex: 1;
+      text-align: center;
+      font-size: 9.5px;
+      color: #9CC4B4;
+      line-height: 1.3;
+    }
+
+    .swatch i {
+      display: block;
+      height: 18px;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      border: 1px solid rgba(255, 255, 255, .14);
+    }
+
+    .panel p {
+      color: #C3E0D4;
+    }
+
+    footer.notes {
+      margin-top: 22px;
+      font-size: 11.5px;
+      color: #8FB6A6;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    footer.notes b {
+      color: #B6D8C9;
+    }
+
+    @media (max-width:1040px) {
+      .stage {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .rail .panel {
+        flex: 1 1 250px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      header.hero {
+        grid-template-columns: 1fr;
+      }
+
+      .howto {
+        text-align: left;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width:620px) {
+      .shell {
+        padding: 20px 12px 40px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card {
+        position: absolute;
+        left: 12px !important;
+        right: 12px;
+        top: auto !important;
+        bottom: 12px;
+        width: auto;
+        transform: none;
+      }
+
+      .card.show {
+        transform: none;
+      }
+
+      .card-arrow {
+        display: none !important;
+      }
+
+      .card-body {
+        max-height: 42vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== shared icon library ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <g class="rays" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path
+            d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6" />
+        </g>
+        <circle cx="12" cy="12" r="5.2" fill="currentColor" />
+      </symbol>
+      <symbol id="i-turbine" viewBox="0 0 24 24">
+        <g class="spin" fill="currentColor">
+          <path d="M12 11.2 11.1 3.4c-.1-1 .6-1.7 1.5-1.7s1.6.7 1.5 1.7L12 11.2Z" />
+          <path d="M12.9 12.3l6.9 3.4c.9.4 1.2 1.4.6 2.1-.6.7-1.6.7-2.3.2L12.9 12.3Z" />
+          <path d="M11.1 12.3 4.2 15.7c-.9.4-1.2 1.4-.6 2.1.6.7 1.6.7 2.3.2l6.9-4.6Z" />
+        </g>
+        <path d="M11.2 12h1.6l.7 9.2h-3L11.2 12Z" fill="currentColor" />
+      </symbol>
+      <symbol id="i-h2" viewBox="0 0 24 24">
+        <path d="M12 2.6c3.4 4.3 5.4 7.1 5.4 9.6a5.4 5.4 0 1 1-10.8 0c0-2.5 2-5.3 5.4-9.6Z" fill="none"
+          stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" />
+        <path d="M10.4 12.8 9 15.4h2l-.6 2.3 2.9-3.4h-2l.8-1.5Z" fill="currentColor" />
+      </symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24">
+        <path d="M20 3.5c0 9.2-4.6 14-11.4 14A5.6 5.6 0 0 1 3 11.9C3 5.2 9.6 3.5 20 3.5Z" fill="none"
+          stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" />
+        <path d="M3.6 20.4c3.2-5.3 7-8.6 12-11.2" fill="none" stroke="currentColor" stroke-width="1.9"
+          stroke-linecap="round" />
+      </symbol>
+      <symbol id="i-cash" viewBox="0 0 24 24">
+        <rect x="2.2" y="5.6" width="19.6" height="12.8" rx="2.4" fill="none" stroke="currentColor"
+          stroke-width="1.9" />
+        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <path d="M5.6 9.4v5.2M18.4 9.4v5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </symbol>
+      <symbol id="i-book" viewBox="0 0 24 24">
+        <path d="M4 4.4h5.2c1.6 0 2.8 1 2.8 2.3V20c0-1.2-1.2-2.2-2.8-2.2H4V4.4Z" fill="none" stroke="currentColor"
+          stroke-width="1.8" stroke-linejoin="round" />
+        <path d="M20 4.4h-5.2c-1.6 0-2.8 1-2.8 2.3V20c0-1.2 1.2-2.2 2.8-2.2H20V4.4Z" fill="none" stroke="currentColor"
+          stroke-width="1.8" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <path d="M3.6 20.4h16.8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+        <rect x="5" y="11" width="3.4" height="7" rx="1" fill="currentColor" />
+        <rect x="10.3" y="6.6" width="3.4" height="11.4" rx="1" fill="currentColor" />
+        <rect x="15.6" y="8.8" width="3.4" height="9.2" rx="1" fill="currentColor" />
+      </symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24">
+        <path d="M12 3.2 21.4 20H2.6L12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.9"
+          stroke-linejoin="round" />
+        <path d="M12 9.2v4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <circle cx="12" cy="16.6" r="1.1" fill="currentColor" />
+      </symbol>
+      <symbol id="i-target" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.9" />
+        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+      </symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24">
+        <path d="M12 3c3.6 4.6 5.6 7.5 5.6 10A5.6 5.6 0 0 1 6.4 13c0-2.5 2-5.4 5.6-10Z" fill="none"
+          stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M12 21.2s7-6.1 7-11.1a7 7 0 1 0-14 0c0 5 7 11.1 7 11.1Z" fill="none" stroke="currentColor"
+          stroke-width="1.9" stroke-linejoin="round" />
+        <circle cx="12" cy="10" r="2.5" fill="currentColor" />
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path d="M12 2.6 14 9l6.4 2-6.4 2-2 6.4-2-6.4L3.6 11 10 9l2-6.4Z" fill="currentColor" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="shell">
+
+    <!-- ============ HEADER ============ -->
+    <header class="hero">
+      <div>
+        <span class="kicker">
+          <svg aria-hidden="true">
+            <use href="#i-leaf" />
+          </svg>
+          مشروع جامعي · إنفوجرافيك تفاعلي
+        </span>
+        <h1>الاقتصاد الأخضر في مصر</h1>
+        <p class="sub">
+          يتجلى الاقتصاد الأخضر في مصر بوضوح على الخريطة: أكبر محطة طاقة شمسية في العالم في أسوان، ومزارع رياح تمتد على
+          طول البحر الأحمر، ومنطقة قناة السويس التي تراهن على الهيدروجين الأخضر، والري الحديث في دلتا النيل، والقاهرة
+          التي تموّل كل ذلك بالسندات الخضراء.
+
+
+          <b>مرّر فوق أي نقطة ساخنة لمعاينتها، واضغط عليها لتثبيت القصة كاملة.</b>
+        </p>
+      </div>
+      <div class="howto">
+        <b>كيفية الاستكشاف</b><br>
+        مرّر فوق العلامة لمعاينة نقطة ساخنة<br>
+        اضغط <b>لتثبيت</b> القصة كاملة<br>
+        <kbd>Tab</kbd> للتنقل بين النقاط الساخنة · <kbd>Esc</kbd> للإغلاق
+      </div>
+    </header>
+
+    <!-- ============ STAT STRIP ============ -->
+    <section class="stats" aria-label="Key figures">
+      <div class="stat"><b>3.5 GW</b><span>سعة محطة بنبان الشمسية — أكبر محطة طاقة شمسية في العالم</span></div>
+      <div class="stat"><b>750+ MW</b><span>القدرة المركبة لطاقة الرياح في ممر خليج السويس</span></div>
+      <div class="stat"><b>2–4 GW</b><span>الهدف الوطني للتحليل الكهربائي للهيدروجين الأخضر بحلول 2030</span></div>
+      <div class="stat"><b>1M ha</b><span>الأراضي المستهدفة بالري الحديث وأنظمة التنقيط</span></div>
+      <div class="stat"><b>$1.75 bn</b><span>السندات السيادية الخضراء التي تم جمعها منذ 2020</span></div>
+    </section>
+
+    <!-- ============ STAGE ============ -->
+    <div class="stage">
+
+      <!-- ---------- MAP ---------- -->
+      <div class="map-panel" id="mapPanel">
+        <div class="map-wrap" id="mapWrap">
+          <svg class="map" id="map" viewBox="0 0 1000 720" role="img"
+            aria-label="خريطة مصر تضم خمس نقاط ساخنة للاقتصاد الأخضر: محطة بنبان الشمسية في أسوان، مزارع رياح الزعفرانة على خليج السويس، الهيدروجين الأخضر في المنطقة الاقتصادية لقناة السويس في بورسعيد، الزراعة المستدامة في دلتا النيل، والتمويل الأخضر في القاهرة">
+            <defs>
+              <linearGradient id="seaGrad" x1="0" y1="0" x2="0.35" y2="1">
+                <stop offset="0%" stop-color="#DCEEF4" />
+                <stop offset="55%" stop-color="#C7E3EE" />
+                <stop offset="100%" stop-color="#AFD3E2" />
+              </linearGradient>
+              <linearGradient id="landGrad" x1="0.15" y1="0" x2="0.85" y2="1">
+                <stop offset="0%" stop-color="#EAF9EF" />
+                <stop offset="40%" stop-color="#D3EFDC" />
+                <stop offset="100%" stop-color="#B6E0C4" />
+              </linearGradient>
+              <radialGradient id="discGrad" cx="34%" cy="26%" r="80%">
+                <stop offset="0%" stop-color="#FFE9AC" />
+                <stop offset="52%" stop-color="#F2B705" />
+                <stop offset="100%" stop-color="#C98700" />
+              </radialGradient>
+              <pattern id="wavePat" width="36" height="36" patternUnits="userSpaceOnUse">
+                <path d="M4 18c4-4 8-4 12 0s8 4 12 0" fill="none" stroke="#8FC3D4" stroke-width="1.4" opacity=".6" />
+              </pattern>
+              <filter id="landShadow" x="-12%" y="-12%" width="124%" height="124%">
+                <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0B3A2A" flood-opacity=".3" />
+              </filter>
+              <filter id="badgeShadow" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0B3A2A" flood-opacity=".35" />
+              </filter>
+            </defs>
+
+            <!-- sea -->
+            <rect class="sea" x="0" y="0" width="1000" height="720" />
+            <rect class="waves" x="0" y="0" width="1000" height="720" />
+
+            <!-- neighbouring countries (context) -->
+            <g id="neighbours">
+              <path class="nb"
+                d="M705.1,1503.6 L693.5,1503.5 L692.3,1500.7 L692.4,1493.1 L693.7,1487.4 L698,1478.2 L696.9,1473.2 L697.6,1466.1 L694.5,1458 L666.5,1434.6 L661.1,1428.1 L646,1422.2 L648.7,1415.6 L642.5,1367.6 L645.6,1362 L646.4,1353.6 L646.3,1346.2 L650,1333.9 L650.4,1328.6 L620.6,1328.3 L620.2,1333.6 L621.6,1339.5 L621.5,1341.9 L580.1,1342.1 L596.7,1360.9 L597.4,1369.2 L596.5,1379.5 L596.7,1386.1 L597.7,1390.4 L602.1,1398.9 L601.8,1400.4 L600.8,1402.4 L571.4,1427.5 L566.5,1439.2 L562.6,1445.2 L554.1,1455.5 L527.3,1482.2 L522.9,1484 L502.5,1484.9 L498.9,1486.8 L498,1486.5 L480.5,1470.8 L451.1,1451.9 L431.7,1461.8 L426.3,1465.4 L426.2,1474.5 L423.3,1479.1 L418.1,1484.1 L403.7,1487.3 L396.2,1490.1 L387.3,1495.2 L378.6,1503.7 L378,1508.1 L378.9,1512.1 L329.3,1512 L326,1508.8 L318.8,1494.7 L313.8,1495.6 L268.5,1493.9 L262.1,1495.4 L249.2,1501.2 L242.6,1502.1 L235.9,1499.5 L212.1,1471.7 L207,1468.3 L201.6,1461.7 L196.5,1458.8 L194.8,1456.7 L194.3,1453.7 L194.4,1447.6 L192.7,1443.7 L189,1442.9 L157,1449.3 L152.4,1448.6 L145.7,1449.7 L143.4,1450.9 L140.7,1454.6 L139.4,1466 L137,1470.2 L127.9,1479.6 L125.9,1483.8 L126.3,1494.1 L125.7,1499.4 L118.9,1508.1 L117.3,1521.4 L111.2,1532.3 L110.9,1538.1 L110.1,1539.8 L95.6,1544.4 L90.2,1547.3 L86.1,1553.8 L72,1551 L56.9,1549.6 L50.9,1547.5 L48.1,1544.3 L49,1536.3 L47.5,1534.6 L45.1,1533.1 L43.4,1529.6 L43.8,1525.5 L51.7,1516.2 L53.4,1511.2 L55.5,1487.8 L54.9,1480.7 L48.5,1467.6 L34,1444.9 L30.5,1440.5 L12.3,1421.9 L5.8,1411.2 L10.7,1393.9 L11,1389.1 L9.7,1384.2 L5.2,1380.5 L1.1,1380 L-4.3,1375.4 L-7.8,1373.3 L-10.9,1369.2 L-13.1,1363.5 L-11.6,1343.1 L-12.6,1340.4 L-17.2,1339.6 L-18.3,1338.2 L-18.1,1334.2 L-23.4,1313 L-21.9,1307.6 L-25.8,1300.3 L-33.2,1297.2 L-47.7,1299.6 L-52.2,1299.2 L-55.4,1297.9 L-57.5,1295.2 L-58.7,1292 L-57.6,1287.3 L-53.5,1278.6 L-48.4,1271.4 L-37.9,1264.9 L-35.1,1261.4 L-33.5,1257.5 L-33.3,1253.1 L-34,1248.4 L-35.2,1244.2 L-41.1,1231.8 L-41.1,1227.4 L-39.8,1224.1 L-37,1220.3 L-26.6,1212.7 L-16,1206.3 L-14.2,1204.1 L-14.8,1201.5 L-19.8,1196.3 L-21.3,1186.2 L-24,1179.1 L-18.6,1173.8 L-14.6,1171.9 L-8.4,1170.3 L-5.9,1168 L-5.2,1163.8 L-5.4,1159.7 L-3.2,1156.7 L-0.2,1150.2 L10.4,1139.7 L12.2,1134.8 L12.7,1130 L10.4,1115.7 L15.1,1109.7 L21.1,1104.7 L29.7,1105.1 L43.1,1104 L52.2,1101.9 L58.7,1102 L73.5,1104.7 L75.1,1103.5 L75.9,1099.7 L75.7,823.5 L137.2,823.5 L138,823 L138,689.9 L526.3,690 L529.5,689.5 L535.6,677 L538.2,676 L542.2,676.8 L543.6,679.7 L540.3,689.9 L879.3,689.9 L880,705.2 L882.7,717.4 L892.3,734.9 L900.5,744.2 L903.4,749.4 L903.3,754 L900.8,751.5 L896.7,749.7 L896.1,757.9 L898,774.5 L901.5,786.2 L899,797 L899.3,815.2 L903.6,837 L902.8,850.9 L909.8,883.3 L916.7,901.2 L920.4,905.6 L924.6,907.9 L932.8,909.5 L944.7,918.6 L954.2,928.2 L962.2,938.7 L965.3,937.7 L967.3,936.3 L970.4,940.7 L985.4,950.3 L987.6,954.7 L982.2,959.1 L975.9,966.6 L972.9,973.6 L971.3,975.8 L966.3,980.2 L965.4,982.3 L963.3,983.6 L960.9,983.7 L955.8,986.1 L951.2,985.3 L946.5,986.6 L944.8,988.3 L941.1,989.7 L936,990.5 L928.2,996.4 L921.4,999.3 L919.1,1001.6 L915.5,1013.3 L912.9,1016.4 L902.8,1016.7 L897.8,1017.7 L891.1,1016.4 L887.8,1016.6 L887,1019.1 L885.8,1029.1 L885.9,1033.4 L880.3,1044.9 L881.9,1066.2 L875.6,1085.8 L870.1,1098.5 L867.3,1103.2 L860.2,1126.7 L857.5,1134 L851.5,1141.6 L857.6,1198 L852.6,1215.3 L852.8,1224.7 L849.3,1238.5 L838.2,1261.3 L834.9,1272.7 L832.7,1294.2 L831.6,1296.1 L813.8,1298.8 L808.1,1300.3 L804.4,1302.7 L799.8,1308.2 L778.3,1345.2 L769.6,1354.2 L767.8,1358.5 L763.1,1379.4 L760.2,1388.5 L760.7,1395.8 L757.9,1408.5 L758.3,1414.7 L755.3,1418.1 L751.1,1421.4 L748.3,1422.2 L735.9,1413.7 L727.2,1419.6 L721.7,1427.8 L717.5,1436 L719.9,1453.6 L719.7,1457.4 L718.4,1461.6 L710.2,1478.8 L707.8,1486.6 L705.2,1500.3 L705.1,1503.6 Z" />
+              <path class="nb"
+                d="M1820.9,889.6 L1647.3,914.3 L1637.9,916.9 L1583.7,944.8 L1546.8,991.2 L1538.2,1013.1 L1526.3,1020.8 L1519.6,1023.9 L1509.1,1023.5 L1496.8,1006.6 L1493.7,1003.1 L1490.8,1002.9 L1467.6,1005.3 L1419.3,1000.7 L1411.3,999.6 L1400.7,993.9 L1398,992.8 L1395.2,992.5 L1370.2,992.3 L1357.7,994 L1345.7,993.4 L1333.4,994.4 L1329,996.6 L1324.1,996.5 L1318.5,999.2 L1315.3,997.6 L1311.4,998 L1305.7,996.6 L1298.5,989.7 L1290.9,986.8 L1287.3,986.7 L1280.1,990.6 L1273.2,997 L1272.9,999.2 L1276.1,1003.1 L1275.1,1004.8 L1271,1007.1 L1269.2,1016.4 L1268.6,1024.2 L1270.4,1030.4 L1272.8,1032.7 L1272.9,1035.4 L1271.6,1040.7 L1267.8,1042.3 L1263.4,1049.7 L1248.8,1061.3 L1248.2,1056.1 L1244.5,1048.4 L1244.2,1043 L1242.5,1037.6 L1239.3,1033.4 L1233.4,1029 L1232.9,1023.1 L1228.6,1017.2 L1222.8,1012.4 L1219.7,1003.7 L1217.3,992 L1202.2,976.7 L1183.4,962.6 L1177.6,954.6 L1168.3,938.3 L1163.5,925.4 L1150.9,910.5 L1150.4,904.8 L1143.9,883.9 L1131.2,857 L1127.1,852.7 L1123.6,846.6 L1121.6,839.4 L1112.7,835 L1104.3,823.6 L1079.3,805.6 L1067.1,803.8 L1057.3,797.3 L1050.2,788.8 L1042.6,774.2 L1029.2,758.4 L1017.8,735.9 L1021.3,727.7 L1021.1,721.9 L1017.6,712.2 L1013.8,704.7 L1011.2,697.6 L1013.3,687.4 L1014.1,676 L1017.9,663.2 L1015.8,649.8 L1012,642.5 L1012.4,637.7 L1008.1,635.4 L1004.6,630.2 L1008.3,630.2 L1001.7,622.9 L999.3,618.9 L996.8,609 L993.6,601.5 L983.4,584.3 L978.5,573.8 L967.6,560.3 L955.8,550.2 L948.2,545.7 L944.6,541.5 L938.5,541.4 L931.7,535.5 L921.1,534.3 L908.4,512.1 L898.5,498.1 L903.9,488.4 L900.9,475.3 L896.6,465.7 L882.3,441.5 L878.6,437.9 L872.5,433.9 L868.7,423.4 L867,413.9 L857.3,409.4 L840.5,375.3 L830.8,363.3 L826.9,355.3 L815.7,342 L810.2,328.9 L798.8,316.7 L789,295.5 L773.9,274.2 L767.5,270.6 L751.9,269 L745.3,267.5 L739.2,272.1 L738.7,266.2 L742.9,258 L748.9,240.8 L750.1,225.7 L759.5,180.5 L825.9,192.2 L829.2,191.5 L854.6,170.4 L868.8,146.3 L872,143.8 L916.5,134.5 L917.9,133.3 L926.8,111.6 L927.8,110.3 L929,109 L948.4,98.1 L917.1,61.2 L884.7,26 L1009.6,-10.9 L1011.8,-11.9 L1021,-20.5 L1097.3,-6.8 L1104.1,-3.5 L1203.6,56 L1252.4,98.4 L1366.7,191.3 L1368.3,192 L1470.5,201.2 L1481.4,198.9 L1537.6,206.5 L1543.1,217.3 L1547,232.2 L1552.5,239 L1600.6,238.3 L1604,244.9 L1605.6,251.6 L1612,267.3 L1621.2,279.6 L1623.4,284 L1624.9,290.8 L1623.3,293.3 L1622.7,296.1 L1629.5,302.8 L1650.1,312.4 L1646.2,316.3 L1660.6,334.3 L1668.8,336.4 L1680,350.1 L1696.8,358.9 L1707,370.5 L1706,370.8 L1699.3,368 L1698.2,369.4 L1699.3,380 L1709.2,388.5 L1711,395.2 L1707.3,409.7 L1701,408.1 L1699.6,408.9 L1702.7,419.3 L1705.8,427.3 L1709.5,433.6 L1712.5,442.8 L1715.2,446.7 L1726,456.4 L1729.3,464.6 L1732.4,479.7 L1739.2,488.2 L1742.9,494.7 L1747.8,500.2 L1751,507.7 L1755.5,513.5 L1757.9,515 L1765.8,515.6 L1776.7,512.7 L1781.1,515.6 L1785.6,515.2 L1786.1,517.9 L1783,521.6 L1779.3,530.9 L1789.7,533.2 L1793.3,534.6 L1795.4,534.7 L1795.6,545.4 L1796.9,548.8 L1856.9,626.7 L2015.8,647.8 L2016.8,647.6 L2020.9,642.2 L2049.3,689.5 L2007.9,823.5 L1820.9,889.6 Z" />
+              <path class="nb"
+                d="M811.7,-65.6 L818.4,-64 L822.2,-60.5 L828.6,-50.7 L838.6,-47.8 L842.7,-45 L848.1,-39.8 L854.8,-37.9 L876,-34.7 L953.1,-84.8 L997.8,-113 L1015.6,-47.7 L1010.8,-46.1 L1014.5,-33.8 L1027.4,-37.2 L1030.2,-29.3 L1011.8,-11.9 L1009.6,-10.9 L884.7,26 L917.1,61.2 L948.4,98.1 L929,109 L927.8,110.3 L926.8,111.6 L917.9,133.3 L916.5,134.5 L872,143.8 L868.8,146.3 L854.6,170.4 L829.2,191.5 L825.9,192.2 L759.5,180.5 L761.5,171.2 L760.9,166.1 L766.9,135.7 L771.4,123.9 L770.9,120.1 L771.8,106.4 L771.4,103.8 L777.4,85.5 L786.5,63.1 L790,52.2 L787.6,45 L791.6,20.8 L793.7,12.7 L797.4,5.9 L795.7,-10.2 L795.9,-18.9 L798.3,-28.8 L797,-40.4 L798.3,-58.6 L800.7,-61.6 L808.4,-65.1 L811.7,-65.6 Z" />
+              <path class="nb"
+                d="M815,-116.2 L813.5,-112.2 L812,-110.1 L811.5,-106.9 L813,-100.7 L814.1,-99.7 L814.5,-97.4 L813.5,-95.1 L815.3,-91.5 L816.2,-84.4 L818,-81.1 L815.1,-76 L814.5,-71.9 L811.7,-65.6 L808.4,-65.1 L800.7,-61.6 L798.3,-58.6 L797,-40.4 L792.8,-40.9 L787.7,-44.5 L786.7,-47.7 L785.2,-48.7 L774.7,-50.7 L766.7,-45.2 L763.3,-36.2 L759.9,-23.2 L762,-4.9 L761.3,-1.5 L759.7,0.3 L760.2,1.7 L761.5,2.1 L765.9,0.6 L770.5,2.1 L774.9,5.1 L775.3,7 L772.2,8.2 L764.8,12.7 L759.5,17.9 L754.7,32.9 L755.2,35 L756.9,36.2 L768.9,35.1 L779.8,31 L788.1,26.6 L790.7,26.9 L787.6,45 L790,52.2 L786.5,63.1 L777.4,85.5 L771.4,103.8 L771.8,106.4 L770.9,120.1 L771.4,123.9 L766.9,135.7 L760.9,166.1 L756.6,171.7 L741.3,120.4 L733.3,102 L730.8,91.1 L715.6,46.6 L722,40.5 L722.1,35.4 L733,23.5 L732.9,22.3 L730,19.1 L742.6,-3.7 L750.4,-25.8 L757.7,-56.6 L763,-72.4 L767.4,-82.8 L769.4,-91.4 L776.5,-92.1 L788.2,-90.9 L793.3,-94.1 L795.8,-103.9 L798.7,-105.4 L800.2,-103.1 L801.7,-105.7 L808.4,-110 L815,-116.2 Z" />
+              <path class="nb"
+                d="M730,19.1 L732.9,22.3 L733,23.5 L722.1,35.4 L722,40.5 L715.6,46.6 L712.6,38.3 L724.4,26.5 L730,19.1 Z" />
+              <path class="nb"
+                d="M797,-40.4 L798.3,-28.8 L795.9,-18.9 L795.7,-10.2 L797.4,5.9 L793.7,12.7 L790.7,26.9 L788.1,26.6 L779.8,31 L768.9,35.1 L756.9,36.2 L755.2,35 L754.7,32.9 L759.5,17.9 L764.8,12.7 L772.2,8.2 L775.3,7 L774.9,5.1 L770.5,2.1 L765.9,0.6 L761.5,2.1 L760.2,1.7 L759.7,0.3 L761.3,-1.5 L762,-4.9 L759.9,-23.2 L763.3,-36.2 L766.7,-45.2 L774.7,-50.7 L785.2,-48.7 L786.7,-47.7 L787.7,-44.5 L792.8,-40.9 L797,-40.4 Z" />
+              <path class="nb"
+                d="M-825.8,117.6 L-818.4,113.8 L-807.8,109.5 L-802.3,106.2 L-792.1,92.3 L-782.3,77.5 L-779.8,71.6 L-779.8,66.1 L-780.6,59.5 L-788.6,28 L-785.8,22 L-778.7,11.8 L-776.7,10.3 L-766.1,8.1 L-761.9,3.2 L-758.7,-2.9 L-757.8,-6.1 L-747.7,-12.9 L-744.3,-17.2 L-723,-30.2 L-702,-41.8 L-700.1,-46.2 L-700.2,-50 L-705.2,-58.7 L-704.8,-77.6 L-702,-98.8 L-692.5,-94.1 L-682.8,-92.2 L-653.7,-74.7 L-644.5,-72.5 L-624.2,-70.5 L-600.2,-77.6 L-591.1,-78.9 L-575.4,-72.2 L-568.4,-70.3 L-556.7,-69.8 L-536.8,-63.7 L-531.7,-61.6 L-520,-51.9 L-514.5,-49 L-473.1,-40.1 L-467.5,-34.3 L-461.7,-23.1 L-461.5,-9.2 L-458.3,0.9 L-453.2,13.9 L-447,23.1 L-440.1,30.7 L-432.2,35.5 L-414.1,42.5 L-393.7,45.2 L-373.1,46.2 L-337.7,55.9 L-307.7,67.1 L-300.3,72.6 L-285.2,78 L-255.4,104.2 L-238.7,113.2 L-227.1,115 L-216.6,113.4 L-198,104.3 L-190.3,98.9 L-171.6,76.3 L-165.5,64.4 L-163,56.1 L-163.6,47.6 L-166,39.9 L-171.2,31.9 L-174.9,21.2 L-177,2.1 L-174.1,-11.2 L-170.5,-19.2 L-164.9,-27.4 L-149.3,-43.1 L-133.7,-54.1 L-106.2,-68.6 L-90.2,-68.7 L-83.6,-70.3 L-70.5,-80.6 L-65.1,-81 L-57.8,-78.4 L-36.1,-79.2 L-26.5,-76.3 L-15.1,-69.9 L-0.8,-66 L20.2,-56.9 L22.7,-44.3 L21.5,-40.6 L21.2,-35.7 L32.4,-27 L64.3,-23 L70.6,-20.7 L79.3,-14 L85,-12 L106.8,-11.1 L119.5,-12.5 L131.7,-10.2 L136.2,-7.9 L140.8,-2.7 L148.6,14 L146.2,16.1 L140.7,24.3 L134.9,30.6 L130.1,37.4 L131.6,57.3 L137.6,78 L136.8,85.1 L134.4,93.9 L131.6,101.1 L122.2,116.1 L120.7,119.7 L121.3,124.7 L127,142.3 L127.5,147.9 L130.9,165 L134,178.9 L138,192.8 L138,823 L137.2,823.5 L75.7,823.5 L75.7,856.5 L-193.1,714.8 L-422.8,592 L-485.4,622.4 L-532.1,648 L-533,647.9 L-533.9,647.6 L-571.5,614.1 L-578.8,610 L-673.1,587 L-685.7,561.5 L-700,534.3 L-701.8,532.7 L-753,516.5 L-768.4,521.4 L-771.1,521 L-775.5,518 L-779.9,513.8 L-782.2,507.9 L-788.3,500.1 L-794,482.2 L-794.6,467.9 L-795.8,462.8 L-830.2,412 L-831.8,406.4 L-830.8,399.6 L-827.5,393.5 L-815.4,386.2 L-804.6,378.3 L-803.1,372.8 L-802.4,357.6 L-806,352.9 L-808.6,343.8 L-811.2,331.6 L-811.5,323.8 L-801,291.8 L-804.6,273.6 L-807.3,237 L-805.6,208.1 L-807,197.6 L-811.6,179.4 L-818.2,160.3 L-824.1,148.8 L-833.8,134.6 L-838.8,125.8 L-825.8,117.6 Z" />
+            </g>
+
+            <!-- Egypt -->
+            <path class="egypt"
+              d="M879.3,689.9 L540.3,689.9 L543.6,679.7 L542.2,676.8 L538.2,676 L535.6,677 L529.5,689.5 L526.3,690 L138,689.9 L138,192.8 L137.5,189.8 L134,178.9 L130.9,165 L127.5,147.9 L127,142.3 L121.3,124.7 L120.7,119.7 L122.2,116.1 L131.6,101.1 L134.4,93.9 L136.8,85.1 L137.6,78 L134.8,67.1 L131.6,57.3 L130.5,47.3 L130.1,37.4 L134.9,30.6 L140.7,24.3 L142.8,20.4 L146.2,16.1 L148.6,14 L153.3,22.9 L163.1,24.4 L194.9,16.5 L230.1,24.5 L249.5,27.5 L279.4,34.3 L297.6,46.3 L302.6,47.8 L315.7,47.6 L324.2,54.7 L358.3,58.1 L376.6,66 L386.9,72.2 L393.1,74.1 L398.6,73.8 L406,71.5 L415.3,67.1 L425.5,61 L446.5,45.2 L454,42.5 L458.9,43.2 L464.8,43 L467.3,38.7 L470.4,35.8 L472.4,32.4 L475.6,28.4 L486.5,27.3 L508.5,20.5 L506,23.7 L486,31.4 L494.6,32.4 L503.4,29.7 L513.4,28.1 L515.2,24.8 L516.5,18.6 L518.4,17.8 L525.3,18.9 L545.9,28.4 L551.1,28.6 L568.7,22.3 L573.4,25.2 L584.1,36.9 L580.3,36.7 L568.9,26.6 L567.9,31.6 L561.3,40.5 L569.5,44.3 L576.1,45.7 L579.7,50.7 L581.9,55 L588.5,53.1 L593.2,47.2 L590.7,43.8 L589.1,40.4 L591.2,40.3 L595.8,43.2 L608.8,54.5 L613.2,56.8 L618.3,56.4 L628.9,53.2 L631.8,53.7 L646,49.6 L647.7,52.6 L650,55.6 L661.5,52.3 L679.5,52.3 L694.2,48.6 L711.3,39.7 L712.6,38.3 L730.8,91.1 L733.3,102 L741.3,120.4 L746.1,135.4 L754.5,165.5 L756.6,171.7 L753.2,174.9 L746.2,186.5 L738.7,223 L728.1,251.4 L726.9,269.2 L725.2,275.6 L720.1,284.5 L714,293.3 L703.1,288.8 L685.3,273.3 L675,258.6 L663.9,249.1 L653.4,236.5 L650.5,227.4 L650.6,221.6 L646,207.3 L642.7,200.6 L629.9,185.3 L626.2,177.2 L623.4,173.6 L620.6,168.5 L615.9,148.6 L610.9,136 L605.1,139.5 L606.1,144.8 L601.1,152.2 L598,160.7 L600.4,167.6 L610.8,178.2 L612.9,182.8 L615.4,192.8 L615,206.3 L616.7,210.9 L624.5,221 L627.3,226.9 L629,232 L631.6,236.7 L639.4,245.4 L650.5,262 L661.1,273.1 L668.8,278.5 L672,283.9 L672.8,297.8 L672.2,304.4 L678.9,316.8 L681.4,323.1 L687.9,328.2 L690.9,334 L693.6,343.5 L697.7,371.5 L703.4,378.3 L720.8,414.9 L735.5,438 L742.6,455.2 L753.5,476.1 L774.7,521.7 L787.4,535.8 L792.4,543.6 L801.5,549.7 L811.5,558.5 L802,557.6 L799.6,558.1 L796.3,559.6 L794.7,564.9 L794,569.3 L795.2,592.2 L797.8,603.8 L806.1,625.8 L812.3,632.4 L815.3,636.7 L819.5,639.8 L839.3,647.3 L850.8,663.1 L876.7,683.1 L879.2,688.6 L879.3,689.9 Z" />
+
+            <!-- Lake Nasser -->
+            <path class="lake"
+              d="M590.2,644.2 L583.5,643.3 L581.5,643.6 L579.1,644.9 L573.2,651.1 L571.6,657.3 L569.2,659.9 L566.6,661.7 L565.1,664 L564.7,666 L559.8,665.2 L557.7,666 L556.5,667.2 L553.5,668.7 L553.2,669.7 L553.6,671.3 L552.2,673.4 L547.7,675.6 L543.6,678.9 L540.7,682.8 L538.9,685.8 L535.4,697.7 L533.2,702.3 L531.6,704.1 L529.3,705.5 L521,715.7 L518.9,715.9 L520.2,711.7 L532.2,694.3 L536.5,682.7 L541.3,675.5 L550.2,666.9 L557.2,659.2 L562.2,657.1 L560.2,653.6 L555.6,648.9 L555.4,647.5 L562.8,651.3 L564.6,651.6 L568.4,646.6 L570.1,645.1 L577.1,640.2 L583.8,637 L586,636.5 L589.5,637.8 L596.6,643.1 L601.3,642.8 L606.8,638.6 L609.4,633.7 L610.6,629 L615.2,621.9 L621.7,606.7 L624.7,603.7 L626.7,603.4 L628.9,599 L628.8,592.5 L628,589.4 L621.9,587.2 L616.8,590.1 L614.4,589.8 L612.9,588.5 L619.7,583.5 L619,582.3 L617.7,581.9 L615.9,583.7 L614.5,582.3 L616.4,579.2 L621.7,579.8 L625.3,582.6 L627.6,580.2 L628.8,576.3 L628.2,574.1 L628.5,572.4 L629.8,570.6 L630,568.4 L629.4,565.9 L627.2,562.9 L626.9,560.4 L630.4,555 L633.8,558.3 L634.5,568.4 L637.1,575 L636.7,577.7 L633,579.1 L632.3,580.8 L632.4,582.5 L633.2,583.7 L634.3,584 L637.2,586.2 L638.2,587.7 L634.9,587.7 L633.1,589.3 L634.4,593 L636.6,595.3 L637.3,597 L638.3,601.8 L638.4,606.1 L637.6,606.5 L633,605.3 L633.5,608.3 L632.4,611.3 L629.5,611.6 L628.7,612.5 L628.9,614.2 L629.8,616.2 L637.3,625.2 L636.2,626.6 L629.1,623.7 L624.5,619.5 L621.9,620 L621.7,621.6 L619.5,625.8 L614.1,629.2 L613.4,634.2 L612.1,636.9 L602.4,645.8 L596.3,650.5 L596,652.6 L594.1,653.9 L591.5,653.6 L591.1,652.8 L594.2,649.8 L594,648.4 L590.5,645.3 L590.2,644.2 Z" />
+
+            <!-- Nile -->
+            <g class="nile-group">
+              <path class="nile-halo"
+                d="M630.4,555 L632.2,567.3 L631.9,574.9 L629.9,582 L630.3,589.6 L631.9,594.1 L632.6,599.7 L628.9,608.1 L618,621.5 L612.2,630.6 L611.5,635.3 L607.6,639.8 L601.7,644.4 L595.9,645.7 L590.1,641.3 L584.1,640.2 L578.2,642.5 L573.1,647.2 L569,654.2 L547.2,672.7" />
+              <path class="nile"
+                d="M630.4,555 L632.2,567.3 L631.9,574.9 L629.9,582 L630.3,589.6 L631.9,594.1 L632.6,599.7 L628.9,608.1 L618,621.5 L612.2,630.6 L611.5,635.3 L607.6,639.8 L601.7,644.4 L595.9,645.7 L590.1,641.3 L584.1,640.2 L578.2,642.5 L573.1,647.2 L569,654.2 L547.2,672.7" />
+              <path class="nile-halo" d="M538.2,683.4 L535.8,691 L530.7,700.1 L518.9,715.9" />
+              <path class="nile" d="M538.2,683.4 L535.8,691 L530.7,700.1 L518.9,715.9" />
+              <path class="nile-halo"
+                d="M630.4,555 L632.5,531.8 L632.5,523.2 L631,521.5 L631.2,517.3 L632.9,510.5 L633,501.5 L629.9,483.1 L628.4,480 L623.4,475.4 L614.8,469.3 L609.3,461.6 L606.9,452.4 L606.3,446.7 L608.2,443.5 L619.5,433.7 L623.2,425 L623.2,414.3 L621.4,407.7 L617.8,405.3 L610.1,406.7 L598.1,412 L589.8,411.3 L585.2,404.8 L581.5,403.5 L578.2,403.4 L576.5,402.7 L573.4,396 L567.6,390.6 L564.4,385.7 L563.9,381.2 L562,379 L558.8,378.9 L557.3,377.4 L557.6,374.6 L556.6,372.7 L554.1,371.9 L547.7,363.6 L534.5,343 L530.6,338.4 L511.3,322.1 L505,311.9 L506.3,303.6 L505.6,283.6 L504.7,277.7 L501.2,270.7 L497.3,265 L497.1,260.5 L498.4,254.9 L501.5,248.3 L503,241.9 L503.1,235.5 L504.4,228.4 L506.9,220.6 L512.9,209.8 L522.3,196 L526.9,185.6 L526.7,178.7 L528,170.9 L530.8,162.3 L531.1,149.8 L529.2,134.2 L529.1,128.4 L528.1,125.5" />
+              <path class="nile"
+                d="M630.4,555 L632.5,531.8 L632.5,523.2 L631,521.5 L631.2,517.3 L632.9,510.5 L633,501.5 L629.9,483.1 L628.4,480 L623.4,475.4 L614.8,469.3 L609.3,461.6 L606.9,452.4 L606.3,446.7 L608.2,443.5 L619.5,433.7 L623.2,425 L623.2,414.3 L621.4,407.7 L617.8,405.3 L610.1,406.7 L598.1,412 L589.8,411.3 L585.2,404.8 L581.5,403.5 L578.2,403.4 L576.5,402.7 L573.4,396 L567.6,390.6 L564.4,385.7 L563.9,381.2 L562,379 L558.8,378.9 L557.3,377.4 L557.6,374.6 L556.6,372.7 L554.1,371.9 L547.7,363.6 L534.5,343 L530.6,338.4 L511.3,322.1 L505,311.9 L506.3,303.6 L505.6,283.6 L504.7,277.7 L501.2,270.7 L497.3,265 L497.1,260.5 L498.4,254.9 L501.5,248.3 L503,241.9 L503.1,235.5 L504.4,228.4 L506.9,220.6 L512.9,209.8 L522.3,196 L526.9,185.6 L526.7,178.7 L528,170.9 L530.8,162.3 L531.1,149.8 L529.2,134.2 L529.1,128.4 L528.1,125.5" />
+              <path class="nile-halo"
+                d="M523.4,123.3 L518.1,110.7 L519.9,103.9 L526.4,97.5 L528.8,89.1 L527.3,78.8 L527.2,71.4 L528.5,66.7 L532.6,60.5 L539.4,52.5 L545,48.2 L549.3,47.8 L555.1,41.6" />
+              <path class="nile"
+                d="M523.4,123.3 L518.1,110.7 L519.9,103.9 L526.4,97.5 L528.8,89.1 L527.3,78.8 L527.2,71.4 L528.5,66.7 L532.6,60.5 L539.4,52.5 L545,48.2 L549.3,47.8 L555.1,41.6" />
+              <path class="nile-halo"
+                d="M528.1,125.5 L526.5,124.1 L516.5,120.3 L511.5,116.5 L509.2,112.1 L504.2,108.6 L503.8,100.2 L499.9,86 L498.9,77.8 L499.9,75.5 L498.4,71.5 L498.5,65.8 L497.5,61 L495.5,57.1 L491.8,53.2 L486.4,49.4 L483.6,45.1 L483.3,40.3 L481.4,35.8" />
+              <path class="nile"
+                d="M528.1,125.5 L526.5,124.1 L516.5,120.3 L511.5,116.5 L509.2,112.1 L504.2,108.6 L503.8,100.2 L499.9,86 L498.9,77.8 L499.9,75.5 L498.4,71.5 L498.5,65.8 L497.5,61 L495.5,57.1 L491.8,53.2 L486.4,49.4 L483.6,45.1 L483.3,40.3 L481.4,35.8" />
+            </g>
+
+            <!-- Suez Canal -->
+            <path class="canal-halo" d="M594.3,42.9 L592.4,72.7 L591.8,94.4 L596.2,114 L603.6,126.9 L609.9,135.6" />
+            <path class="canal" d="M594.3,42.9 L592.4,72.7 L591.8,94.4 L596.2,114 L603.6,126.9 L609.9,135.6" />
+
+            <!-- place labels -->
+            <text class="lbl-neighbour" x="189" y="277">ليبيا</text>
+            <text class="lbl-neighbour" x="326" y="676">السودان</text>
+            <text class="lbl-neighbour" x="875" y="347" text-anchor="middle">السعودية</text>
+            <text class="lbl-neighbour" x="744" y="40" text-anchor="middle">إسرائيل</text>
+            <text class="lbl-neighbour" x="844" y="112" text-anchor="middle">الأردن</text>
+
+            <text class="lbl-region" x="339" y="298">الصحراء الغربية</text>
+            <text class="lbl-region" x="364" y="472">الوادي الجديد</text>
+            <text class="lbl-region" x="655" y="390">الصحراء الشرقية</text>
+            <text class="lbl-region" x="663" y="91">سيناء</text>
+
+            <text class="lbl-water" x="862" y="582" text-anchor="middle">البحر الأحمر</text>
+            <text class="lbl-water" x="744" y="270" text-anchor="middle">خليج العقبة</text>
+            <text class="lbl-water" x="650" y="256" text-anchor="middle" transform="rotate(-72 650 256)">خليج
+              السويس</text>
+
+
+            <text class="lbl-city" x="445" y="67" text-anchor="end">الإسكندرية</text>
+            <text class="lbl-city" x="620" y="33">بورسعيد</text>
+            <text class="lbl-city" x="621" y="154">السويس</text>
+            <text class="lbl-city" x="626" y="452">الأقصر</text>
+            <text class="lbl-city" x="659" y="562">أسوان</text>
+            <text class="lbl-city" x="700" y="341">الغردقة</text>
+            <text class="lbl-city" x="819" y="495" text-anchor="end">مرسى علم</text>
+            <text class="lbl-city" x="267" y="55" text-anchor="end">مطروح</text>
+            <text class="lbl-city" x="399" y="193" text-anchor="end">الفيوم</text>
+
+            <!-- scale bar + north arrow -->
+            <g transform="translate(160,652)">
+              <path class="scale-line" d="M0,0 L127,0 M0,-5 L0,5 M63.5,-4 L63.5,4 M127,-5 L127,5" />
+              <text x="0" y="18" font-size="9.5" fill="#5B6B5F">0</text>
+              <text x="127" y="18" font-size="9.5" fill="#5B6B5F" text-anchor="middle">200 كم</text>
+            </g>
+            <g transform="translate(172,610)" opacity=".7">
+              <path d="M0,-16 L5,-2 L0,-5 L-5,-2 Z" fill="#3D6B58" />
+              <text x="0" y="12" font-size="10" font-weight="700" fill="#3D6B58" text-anchor="middle">ش</text>
+            </g>
+
+            <!-- hotspots + labels -->
+            <g id="markers"></g>
+            <g id="labels"></g>
+          </svg>
+
+          <!-- info card -->
+          <article class="card" id="card" role="dialog" aria-modal="false" aria-labelledby="cardTitle">
+            <div class="card-arrow" id="cardArrow"></div>
+            <div class="card-head">
+              <div class="card-icon"><svg id="cardIcon">
+                  <use href="#i-sun" />
+                </svg></div>
+              <div>
+                <h3 id="cardTitle">—</h3>
+                <p id="cardField">—</p>
+              </div>
+              <button class="card-close" id="cardClose" aria-label="إغلاق">×</button>
+            </div>
+            <div class="card-body" id="cardBody"></div>
+            <div class="card-foot">
+              <svg aria-hidden="true">
+                <use href="#i-pin" />
+              </svg>
+              <span id="cardFoot">—</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- ---------- SIDE RAIL ---------- -->
+      <aside class="rail">
+        <section class="panel">
+          <h2><svg aria-hidden="true">
+              <use href="#i-spark" />
+            </svg> خمس نقاط ساخنة</h2>
+          <div id="legend"></div>
+        </section>
+
+        <section class="panel">
+          <h2><svg aria-hidden="true">
+              <use href="#i-drop" />
+            </svg> دليل الألوان</h2>
+          <div class="swatches" style="margin-bottom:8px">
+            <div class="swatch"><i style="background:linear-gradient(180deg,#EAF9EF,#B6E0C4)"></i>مصر</div>
+            <div class="swatch"><i style="background:#EDE7D8"></i>الدول المجاورة</div>
+            <div class="swatch"><i style="background:linear-gradient(180deg,#DCEEF4,#AFD3E2)"></i>البحر</div>
+          </div>
+          <div class="swatches">
+            <div class="swatch"><i style="background:linear-gradient(180deg,#14614A,#0A3327)"></i>اللوحة</div>
+            <div class="swatch"><i style="background:linear-gradient(140deg,#FFE9AC,#C98700)"></i>نقطة ساخنة</div>
+            <div class="swatch"><i style="background:#3FA3C4"></i>النيل</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2><svg aria-hidden="true">
+              <use href="#i-book" />
+            </svg> لماذا يهم هذا؟</h2>
+          <p style="margin:0;font-size:12.5px;line-height:1.65;">
+            الاقتصاد الأخضر هو نقطة التقاء <b style="color:#FFD978">الوظائف الخضراء</b>، و<b
+              style="color:#FFD978">الطاقة النظيفة</b>، و<b style="color:#FFD978">التمويل المستدام</b>. وتربط استراتيجية
+            الاقتصاد الأخضر في مصر (2022–2030) بين الطاقة المتجددة والأمن الغذائي وتنويع الصادرات — وهي "الأولويات
+            الوطنية" الثلاث التي تمتد عبر كل نقطة ساخنة على هذه الخريطة.
+
+
+
+
+          </p>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="notes">
+      <b>مصادر الأرقام المعروضة:</b> الهيئة المصرية للطاقة الجديدة والمتجددة (NREA)، الوكالة الدولية للطاقة المتجددة
+      (IRENA)، الهيئة العامة للمنطقة الاقتصادية لقناة السويس (SCZONE)، البنك المركزي المصري، وزارة التخطيط والتنمية
+      الاقتصادية، والاستراتيجية الوطنية للهيدروجين الأخضر (2022). الأرقام مُقرّبة للعرض وتوضيحية لأغراض تعليمية.<br>
+
+
+
+      الخريطة: هندسة مبسطة من Natural Earth (ملكية عامة) معروضة بإسقاط ويب-ميركاتور. مواقع النقاط الساخنة تقريبية.
+
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ============================================================
+         DATA — 5 hotspots, 5 facts each
+         ============================================================ */
+      var HOTSPOTS = [
+        {
+          id: "benban",
+          title: "محطة بنبان للطاقة الشمسية",
+          field: "الطاقة المتجددة · أسوان",
+          icon: "i-sun",
+          x: 613, y: 557.6,
+          label: "محطة بنبان الشمسية",
+          chip: { x: 398, y: 544 },
+          anchor: "right",
+          foot: "محافظة أسوان — الضفة الغربية للنيل",
+          facts: [
+            { t: "book", h: "ما هي؟", p: "<strong>أكبر محطة للطاقة الشمسية الكهروضوئية في العالم</strong>، أُقيمت على أراضٍ صحراوية مستصلحة على الضفة الغربية للنيل." },
+            { t: "chart", h: "رقم رئيسي", p: "بقدرة <strong>3.5 جيجاوات</strong> موزعة على نحو 2.25 مليون لوح شمسي على مساحة تقارب 4,000 هكتار — كافية لتزويد نحو مليون منزل بالكهرباء." },
+            { t: "leaf", h: "الفائدة", p: "تُجنّب انبعاث نحو <strong>980,000 طن من ثاني أكسيد الكربون سنويًا</strong>، وتستهلك حصة ضئيلة من مياه النيل، وتوفّر فرص عمل ماهرة في محافظة صحراوية." },
+            { t: "warn", h: "التحدي", p: "خطوط النقل والربط بالشبكة ما زالت متأخرة عن مواكبة القدرة الإنتاجية، وسعة تخزين البطاريات لا تزال صغيرة جدًا لتغطية الطلب الليلي." },
+            { t: "target", h: "رؤية 2030", p: "مشروع رائد ضمن محور <strong>«الحياد الكربوني»</strong> في رؤية مصر 2030، يدعم استهداف رفع حصة الطاقة المتجددة إلى 42% من مزيج الكهرباء بحلول 2030." }
+          ]
+        },
+        {
+          id: "zafarana",
+          title: "مزارع رياح الزعفرانة",
+          field: "طاقة الرياح · البحر الأحمر / السويس",
+          icon: "i-turbine",
+          x: 613, y: 198.6,
+          label: "مزارع رياح الزعفرانة",
+          chip: { x: 388, y: 185 },
+          anchor: "right",
+          foot: "ساحل خليج السويس، محافظة السويس",
+          facts: [
+            { t: "book", h: "ما هي؟", p: "حزام من مزارع الرياح على الساحل الضيق لخليج السويس، حيث توجّه المنحدرات الصحراوية نسيم البحر الأحمر؛ وكانت الأكبر في أفريقيا عند افتتاح مرحلتها الأولى عام 1986." },
+            { t: "chart", h: "رقم رئيسي", p: "توفّر مراحل الزعفرانة من الأولى إلى الثالثة نحو <strong>400 ميجاوات</strong> من أكثر من 300 توربين، ويستضيف ممر خليج السويس الأوسع الآن أكثر من <strong>750 ميجاوات</strong> على أحد أفضل موارد الرياح في العالم." },
+            { t: "leaf", h: "الفائدة", p: "طاقة نظيفة على مدار الساعة للحزام الصناعي في السويس وشبكة القاهرة، ما يخفّض نحو مليون طن من ثاني أكسيد الكربون سنويًا ويبني صناعة محلية لصيانة التوربينات." },
+            { t: "warn", h: "التحدي", p: "الشريط الساحلي محصور بين البحر والجبال، ورذاذ الملح يؤدي إلى تآكل الشفرات، كما يتم <strong>تقليص تشغيل</strong> التوربينات كثيرًا عند انخفاض الطلب على الشبكة." },
+            { t: "target", h: "رؤية 2030", p: "جزء أساسي من هدف رفع حصة الطاقة المتجددة إلى 42% بحلول 2030، و<strong>الشق المرتبط بالرياح في خطة مصر لتصدير الهيدروجين الأخضر</strong> عبر ممر السويس." }
+          ]
+        },
+        {
+          id: "hydrogen",
+          title: "مشاريع الهيدروجين الأخضر",
+          field: "الوقود الأخضر · المنطقة الاقتصادية لقناة السويس",
+          icon: "i-h2",
+          x: 596.2, y: 50.2,
+          label: "الهيدروجين الأخضر · المنطقة الاقتصادية لقناة السويس",
+          chip: { x: 640, y: 62 },
+          anchor: "right",
+          foot: "المنطقة الاقتصادية لقناة السويس — بورسعيد / العين السخنة",
+          facts: [
+            { t: "book", h: "ما هي؟", p: "استخدام الكهرباء المتجددة لتحليل الماء إلى هيدروجين عبر التحليل الكهربائي، ثم تحويله إلى <strong>أمونيا خضراء وميثانول أخضر</strong> للتصدير والأسمدة ووقود السفن." },
+            { t: "chart", h: "رقم رئيسي", p: "تم توقيع اتفاقيات تتجاوز <strong>8 مليارات دولار أمريكي</strong> للهيدروجين الأخضر والوقود الأخضر في المنطقة؛ وتستهدف استراتيجية مصر الوطنية <strong>2–4 جيجاوات من أجهزة التحليل الكهربائي بحلول 2030</strong>." },
+            { t: "leaf", h: "الفائدة", p: "يخلق منتجًا تصديريًا عالي القيمة، ويخفّض تكلفة الغاز الطبيعي المستورد المستخدم في الأسمدة، ويضع مصر كمركز للوقود الأخضر بين أوروبا وآسيا." },
+            { t: "warn", h: "التحدي", p: "لا يزال الهيدروجين الأخضر أغلى بـ<strong>3–5 أضعاف</strong> من الهيدروجين الرمادي، ولا توجد عقود شراء طويلة الأجل قابلة للتمويل بعد، كما لا تزال البنية التحتية للموانئ وخطوط الأنابيب والتخزين قيد الإنشاء." },
+            { t: "target", h: "رؤية 2030", p: "في إطار محور <strong>«الميزة التنافسية»</strong>، تسعى مصر إلى أن تصبح منطقة قناة السويس بوابة عالمية لتصدير الهيدروجين الأخضر والطاقة المتجددة." }
+          ]
+        },
+        {
+          id: "agri",
+          title: "مشاريع الزراعة المستدامة",
+          field: "الأمن المائي والغذائي · دلتا النيل",
+          icon: "i-leaf",
+          x: 508.3, y: 67.6,
+          label: "الزراعة المستدامة",
+          chip: { x: 300, y: 8 },
+          anchor: "left",
+          foot: "دلتا النيل — كفر الشيخ، البحيرة، الشرقية، الدقهلية",
+          facts: [
+            { t: "book", h: "ما هي؟", p: "تحديث استخدام مياه الري في الدلتا باستخدام <strong>أنظمة الري بالتنقيط والرش، والترع المبطنة، والمضخات الشمسية</strong>، وإعادة استخدام مياه الصرف المعالجة." },
+            { t: "chart", h: "رقم رئيسي", p: "تستهلك الزراعة نحو <strong>80% من المياه العذبة في مصر</strong>؛ وتُطعم أراضي الدلتا البالغة نحو 4.8 مليون فدان البلاد، بينما تحوّل برامج الري الحديث نحو <strong>مليون هكتار</strong>." },
+            { t: "leaf", h: "الفائدة", p: "إنتاج غذائي أكبر لكل متر مكعب من المياه، وتكاليف أقل للضخ والأسمدة، وانخفاض تسرب المغذيات إلى بحيرة المنزلة والبحر المتوسط." },
+            { t: "warn", h: "التحدي", p: "الملوحة والغدق في شمال الدلتا، وهبوط الأراضي وارتفاع منسوب البحر، إضافة إلى التكاليف الأولية المرتفعة التي يصعب على صغار المزارعين تمويلها." },
+            { t: "target", h: "رؤية 2030", p: "يدعم محور <strong>«الأمن الغذائي»</strong> في رؤية مصر 2030 — من خلال رفع الإنتاجية، وخفض فاقد ما بعد الحصاد، وتحسين كفاءة استخدام المياه بنسبة 20% بحلول 2030." }
+          ]
+        },
+        {
+          id: "bonds",
+          title: "السندات الخضراء والتمويل الأخضر",
+          field: "التمويل المستدام · القاهرة",
+          icon: "i-cash",
+          x: 528.8, y: 130.5,
+          label: "السندات الخضراء · القاهرة",
+          chip: { x: 330, y: 117 },
+          anchor: "below",
+          foot: "القاهرة — وزارة المالية، البنك المركزي المصري، البورصة المصرية",
+          facts: [
+            { t: "book", h: "ما هي؟", p: "اقتراض لتمويل مشاريع ذات فوائد بيئية قابلة للقياس — الطاقة الشمسية والرياح، والمباني الموفّرة للطاقة، والنقل النظيف والمياه — يتم الإبلاغ عنها وفق معايير خضراء دولية." },
+            { t: "chart", h: "رقم رئيسي", p: "جمعت أول سندات سيادية خضراء مصرية (2020) مبلغ <strong>750 مليون دولار أمريكي</strong> بتغطية زائدة بلغت <strong>2.5 ضعف</strong>؛ وجمعت شريحتان منذ ذلك الحين نحو <strong>1.75 مليار دولار أمريكي</strong>." },
+            { t: "leaf", h: "الفائدة", p: "تخفّض تكلفة التمويل للمشاريع الخضراء، وتجذب رأس المال الأجنبي لدعم أهداف التنمية المستدامة، وتعزّز التصنيف الائتماني لمصر، وتجعل القاهرة مركزًا ماليًا إقليميًا." },
+            { t: "warn", h: "التحدي", p: "ضعف قدرات التحقق والإبلاغ يحمل خطر «التبييض الأخضر»، فيما يؤدي تراجع قيمة العملة وارتفاع أسعار الفائدة المحلية وضآلة قاعدة المستثمرين الخضر المحليين إلى تثبيط التمويل." },
+            { t: "target", h: "رؤية 2030", p: "يدعم محور <strong>«التنمية الاقتصادية المستدامة»</strong> — بتوجيه المدخرات السيادية والخاصة نحو الأصول الخضراء، وبناء تصنيف وطني للاستدامة للبورصة المصرية." }
+          ]
+        }
+      ];
+
+      /* ============================================================
+         SVG helpers
+         ============================================================ */
+      var NS = "http://www.w3.org/2000/svg";
+      var markersG = document.getElementById("markers");
+      var labelsG = document.getElementById("labels");
+      var mapPanel = document.getElementById("mapPanel");
+      var mapWrap = document.getElementById("mapWrap");
+
+      function el(name, attrs) {
+        var n = document.createElementNS(NS, name);
+        for (var k in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, k)) n.setAttribute(k, attrs[k]); }
+        return n;
+      }
+
+      /* ---------- markers ---------- */
+      HOTSPOTS.forEach(function (h) {
+        var g = el("g", {
+          "class": "hotspot", "data-id": h.id, transform: "translate(" + h.x + "," + h.y + ")",
+          tabindex: "0", role: "button",
+          "aria-label": h.title + " — " + h.field
+        });
+
+        g.appendChild(el("circle", { "class": "halo", r: 30 }));
+        g.appendChild(el("circle", { "class": "ring", r: 24 }));
+        g.appendChild(el("circle", { "class": "disc", r: 17 }));
+        var ico = el("g", { "class": "ico" });
+        ico.appendChild(el("use", { href: "#" + h.icon, x: -11, y: -11, width: 22, height: 22 }));
+        g.appendChild(ico);
+
+        g.addEventListener("mouseenter", function () { showCard(h.id, false); });
+        g.addEventListener("mouseleave", function () { if (pinnedId !== h.id) hideCard(); });
+        g.addEventListener("focus", function () { showCard(h.id, false); });
+        g.addEventListener("blur", function () { if (pinnedId !== h.id) hideCard(); });
+        g.addEventListener("click", function (e) { e.stopPropagation(); togglePin(h.id); });
+        g.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") { e.preventDefault(); togglePin(h.id); }
+        });
+
+        markersG.appendChild(g);
+      });
+
+      /* ---------- label chips + leader lines ---------- */
+      function chipWidth(text) { return Math.round(text.length * 7.7 + 26); }
+      var CHIP_H = 27;
+
+      HOTSPOTS.forEach(function (h) {
+        var w = chipWidth(h.label);
+        var g = el("g", { "class": "label", "data-id": h.id });
+
+        var x = h.chip.x, y = h.chip.y;
+
+        /* leader line from the chip edge to the marker */
+        var cx = x + w / 2, cy = y + CHIP_H / 2;
+        var dx = h.x - cx, dy = h.y - cy;
+        var len = Math.hypot(dx, dy) || 1;
+        /* nearest point on the chip border */
+        var px = cx + dx / len * Math.min(Math.abs(dx) / (w / 2 || 1), Infinity);
+        var ex = cx, ey = cy;
+        var tX = (w / 2) / (Math.abs(dx) || 1e-6);
+        var tY = (CHIP_H / 2) / (Math.abs(dy) || 1e-6);
+        var t = Math.min(tX, tY);
+        ex = cx + dx * t; ey = cy + dy * t;
+
+        var mxp = h.x - (dx / len) * 19;
+        var myp = h.y - (dy / len) * 19;
+
+        g.appendChild(el("path", { "class": "leader", d: "M" + r1(ex) + "," + r1(ey) + " L" + r1(mxp) + "," + r1(myp) }));
+        g.appendChild(el("circle", { "class": "leader-dot", cx: mxp, cy: myp, r: 2.6 }));
+
+        g.appendChild(el("rect", { "class": "chip-bg", x: x, y: y, width: w, height: CHIP_H, rx: 9 }));
+        var t2 = el("text", { "class": "chip-text", x: x + 13, y: y + 18 });
+        t2.textContent = h.label;
+        g.appendChild(t2);
+
+        g.style.cursor = "pointer";
+        g.addEventListener("mouseenter", function () { showCard(h.id, false); });
+        g.addEventListener("mouseleave", function () { if (pinnedId !== h.id) hideCard(); });
+        g.addEventListener("click", function (e) { e.stopPropagation(); togglePin(h.id); });
+
+        labelsG.appendChild(g);
+      });
+
+      function r1(v) { return Math.round(v * 10) / 10; }
+
+      /* ============================================================
+         Legend
+         ============================================================ */
+      var legend = document.getElementById("legend");
+      var legendItems = {};
+      HOTSPOTS.forEach(function (h) {
+        var b = document.createElement("button");
+        b.className = "legend-item";
+        b.type = "button";
+        b.setAttribute("aria-label", "عرض " + h.title);
+        b.innerHTML =
+          '<span class="legend-dot"><svg aria-hidden="true"><use href="#' + h.icon + '"/></svg></span>' +
+          '<span><b>' + h.title + '</b><span>' + h.field + '</span></span>';
+        b.addEventListener("mouseenter", function () { showCard(h.id, false); });
+        b.addEventListener("mouseleave", function () { if (pinnedId !== h.id) hideCard(); });
+        b.addEventListener("click", function () { togglePin(h.id); });
+        legend.appendChild(b);
+        legendItems[h.id] = b;
+      });
+
+      /* ============================================================
+         Card
+         ============================================================ */
+      var card = document.getElementById("card");
+      var cardTitle = document.getElementById("cardTitle");
+      var cardField = document.getElementById("cardField");
+      var cardBody = document.getElementById("cardBody");
+      var cardFoot = document.getElementById("cardFoot");
+      var cardIcon = document.getElementById("cardIcon");
+      var cardArrow = document.getElementById("cardArrow");
+      var cardClose = document.getElementById("cardClose");
+
+      var currentId = null;
+      var pinnedId = null;
+
+      var FACT_CLASS = { book: "", chart: "gold", leaf: "", warn: "warn", target: "gold" };
+
+      function buildBody(h) {
+        cardBody.innerHTML = "";
+        h.facts.forEach(function (f) {
+          var row = document.createElement("div");
+          row.className = "fact" + (f.t === "warn" ? " warn" : "");
+          row.innerHTML =
+            '<span class="fico ' + (FACT_CLASS[f.t] || "") + '"><svg aria-hidden="true"><use href="#' + f.t + '"/></svg></span>' +
+            '<div><h4>' + f.h + '</h4><p>' + f.p + '</p></div>';
+          cardBody.appendChild(row);
+        });
+      }
+
+      function placeCard(h) {
+        var r = mapWrap.getBoundingClientRect();
+        var mx = (h.x / 1000) * r.width;
+        var my = (h.y / 720) * r.height;
+        var cw = card.offsetWidth;
+        var ch = card.offsetHeight;
+        var left, top;
+
+        switch (h.anchor) {
+          case "right": left = mx + 46; top = my - ch / 2; break;
+          case "left": left = mx - 46 - cw; top = my - ch / 2; break;
+          case "below": left = mx - cw / 2; top = my + 46; break;
+          default: left = mx - cw / 2; top = my - 46 - ch; break;
+        }
+
+        var pad = 12;
+        left = Math.max(pad, Math.min(left, r.width - cw - pad));
+        top = Math.max(pad, Math.min(top, r.height - ch - pad));
+
+        card.style.left = left + "px";
+        card.style.top = top + "px";
+
+        var narrow = r.width < 640;
+        cardArrow.style.display = narrow ? "none" : "block";
+        if (!narrow) {
+          var ax = Math.max(16, Math.min(mx - left, cw - 16));
+          var ay = Math.max(16, Math.min(my - top, ch - 16));
+          cardArrow.style.left = (ax - 7) + "px";
+          cardArrow.style.top = (ay - 7) + "px";
+        }
+      }
+
+      function setActive(id) {
+        mapPanel.classList.toggle("focused", !!id);
+        var chips = labelsG.querySelectorAll(".label");
+        for (var j = 0; j < chips.length; j++) {
+          chips[j].classList.toggle("active", !!id && chips[j].getAttribute("data-id") === id);
+        }
+        for (var k in legendItems) {
+          if (Object.prototype.hasOwnProperty.call(legendItems, k)) {
+            legendItems[k].classList.toggle("active", k === id);
+          }
+        }
+      }
+
+      function showCard(id, pin) {
+        var h = null;
+        for (var i = 0; i < HOTSPOTS.length; i++) { if (HOTSPOTS[i].id === id) h = HOTSPOTS[i]; }
+        if (!h) return;
+
+        currentId = id;
+        if (pin) pinnedId = id;
+
+        cardTitle.textContent = h.title;
+        cardField.textContent = h.field;
+        cardFoot.textContent = h.foot;
+        cardIcon.innerHTML = '<use href="#' + h.icon + '"/>';
+        buildBody(h);
+
+        card.classList.add("show");
+        placeCard(h);
+        setActive(id);
+      }
+
+      function hideCard() {
+        if (pinnedId) return;
+        currentId = null;
+        card.classList.remove("show");
+        setActive(null);
+      }
+
+      function togglePin(id) {
+        if (pinnedId === id) {
+          pinnedId = null;
+          card.classList.remove("show");
+          setActive(null);
+        } else {
+          pinnedId = id;
+          showCard(id, true);
+        }
+      }
+
+      cardClose.addEventListener("click", function (e) {
+        e.stopPropagation();
+        pinnedId = null;
+        card.classList.remove("show");
+        setActive(null);
+      });
+
+      mapWrap.addEventListener("click", function (e) {
+        if (card.contains(e.target)) return;
+        pinnedId = null;
+        card.classList.remove("show");
+        setActive(null);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          pinnedId = null;
+          card.classList.remove("show");
+          setActive(null);
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (currentId) {
+          for (var i = 0; i < HOTSPOTS.length; i++) {
+            if (HOTSPOTS[i].id === currentId) { placeCard(HOTSPOTS[i]); break; }
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
